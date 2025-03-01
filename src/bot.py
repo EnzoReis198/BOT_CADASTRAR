@@ -10,7 +10,7 @@ import time
 
 # Dicionário de categorias com palavras-chave
 categorias_palavras_chave = {
-    "IPHONE": ["iphone"],
+    "PELICULAS (IPHONE)": ["iphone"],
     "LG": ["lg "],
     "MOTOROLA": ["motorola"],
     "SAMSUNG": ["samsung"],
@@ -31,7 +31,7 @@ navegador = webdriver.Chrome()
 
 navegador.get("https://gestaoclick.com/inicio")
 print("Diretório de trabalho atual:", os.getcwd())
-df = pd.read_excel("C:/Users/ALGOMAIS/Desktop/testes/BOT_CADASTRAR/src/PRODUTOS.xlsx")
+df = pd.read_excel("C:/Users/Algo Mais Nova/Desktop/BOT_CADASTRAR/src/PRODUTOS.xlsx")
 # df = pd.read_excel("C:/Users/Usuario/Desktop/bot_cadastrar/src/cadastro_produtos_matriz.xlsx")
 # print(df)
 
@@ -74,10 +74,10 @@ try:
 
     for index, row in df.iterrows():
         nome_produto = row['nome']
-        preco_produto = row['valor de venda']
-        estoque_min = row['estoque-min']
-        estoque_max = row['estoque-max']
-        estoque_atual = row['estoque-atual']
+        est_3d = row['est_3d']
+        est_ceramica = row['est_ceramica']
+        est_privada = row['est_privada']
+        est_ceramica_privada = row['est_ceramica_privada']
 
         # Determina a categoria do produto
         categoria_produto = categorizar_produto(nome_produto)
@@ -105,11 +105,11 @@ try:
         campo_grupo_produto = WebDriverWait(navegador, 10).until(
             EC.presence_of_element_located((By.XPATH, '//*[@id="grupo"]')) 
         )
-        campo_grupo_produto.send_keys(categoria_produto)
+        campo_grupo_produto.send_keys(categoria_produto + Keys.ENTER)
 
 
         # Aguarda um pouco antes de adicionar valor produto
-        time.sleep(2)
+        time.sleep(1)
         
         #clicar botao possuir variavel
         possui_variavel = WebDriverWait(navegador, 10).until(
@@ -118,7 +118,7 @@ try:
 
         possui_variavel.click()
 
-        time.sleep(2)
+        time.sleep(1)
         
         #clicar botao sim
         variavel_sim = WebDriverWait(navegador, 10).until(
@@ -128,51 +128,176 @@ try:
 
         variavel_sim.click()
 
-         # Aguarde até que o botão da aba "Valores" esteja visível e clique
-        aba_valores = WebDriverWait(navegador, 10).until(
-            EC.element_to_be_clickable((By.XPATH, '//*[text()="Valores"]'))
-        )
-        aba_valores.click()
-        
-        # Aguarda um pouco
-        time.sleep(2)
 
-        #clicar botao valor de venda
-        campo_valor_venda = WebDriverWait(navegador, 10).until(
-        EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/aside[2]/div/div/section/form/div[1]/div[2]/div[3]/div/div[2]/div/div[2]/div[2]/table/tbody/tr[1]/td[5]/input'))
-        )
-        campo_valor_venda.clear()
-        campo_valor_venda.send_keys((str(preco_produto)))
-
-        # Aguarda um pouco
-        time.sleep(2)
-
-        # Aguarde até que o botão da aba "Estoque" esteja visível e clique
+         # Aguarde até que o botão da aba "ESTOQUE" esteja visível e clique
         aba_estoque = WebDriverWait(navegador, 10).until(
-            EC.element_to_be_clickable((By.XPATH, '//*[text()="Estoque"]'))
+            EC.element_to_be_clickable((By.XPATH, '//*[text()="Estoque/variações"]')) 
         )
         aba_estoque.click()
+        
 
-        #clicar botao estoque min
-        campo_estoque_min = WebDriverWait(navegador, 10).until(
-        EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/aside[2]/div/div/section/form/div[1]/div[2]/div[4]/div/div[1]/div[1]/input'))
-        )
-        campo_estoque_min.clear()
-        campo_estoque_min.send_keys((str(estoque_min)))
 
-        #clicar botao estoque max
-        campo_estoque_max = WebDriverWait(navegador, 10).until(
-        EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/aside[2]/div/div/section/form/div[1]/div[2]/div[4]/div/div[1]/div[2]/input'))
-        )
-        campo_estoque_max.clear()
-        campo_estoque_max.send_keys((str(estoque_max)))
+        # Aguarda um pouco
+        time.sleep(1)
 
-        #clicar botao estoque atual
-        campo_estoque_atual = WebDriverWait(navegador, 10).until(
-        EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/aside[2]/div/div/section/form/div[1]/div[2]/div[4]/div/div[1]/div[3]/input'))
+
+        #clicar botao valor de peliculas 
+        campo_estoque_peliculas = WebDriverWait(navegador, 10).until(
+        EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/aside[2]/div/div/section/form/div[1]/div[2]/div[4]/div/div[2]/div/div[11]/label'))
         )
-        campo_estoque_atual.clear()
-        campo_estoque_atual.send_keys((str(estoque_atual)))
+        campo_estoque_peliculas.click()
+
+        # Aguarda um pouco
+        time.sleep(1)
+
+                #clicar botao variaveis de pelicula 1
+        campo_variaveis_peliculas = WebDriverWait(navegador, 10).until(
+        EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/aside[2]/div/div/section/form/div[1]/div[2]/div[4]/div/div[2]/div[2]/button[1]'))
+        )
+        campo_variaveis_peliculas.click()
+                #clicar botao variaveis de pelicula 2
+        campo_variaveis_peliculas = WebDriverWait(navegador, 10).until(
+        EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/aside[2]/div/div/section/form/div[1]/div[2]/div[4]/div/div[2]/div[2]/button[1]'))
+        )
+        campo_variaveis_peliculas.click()
+              #clicar botao variaveis de pelicula 3
+        campo_variaveis_peliculas = WebDriverWait(navegador, 10).until(
+        EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/aside[2]/div/div/section/form/div[1]/div[2]/div[4]/div/div[2]/div[2]/button[1]'))
+        )
+        campo_variaveis_peliculas.click()  
+
+
+
+
+
+        #adicionar modelo pelicula 3D
+        add_modelo_pelicula = WebDriverWait(navegador, 10).until(
+        EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/aside[2]/div/div/section/form/div[1]/div[2]/div[4]/div/div[2]/div[2]/div/table/tbody/tr[1]/td[3]/select'))
+        )
+        add_modelo_pelicula.click()
+
+                #CLICK 3D
+        add_modelo_3D = WebDriverWait(navegador, 10).until(
+        EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/aside[2]/div/div/section/form/div[1]/div[2]/div[4]/div/div[2]/div[2]/div/table/tbody/tr[1]/td[3]/select/option[2]'))
+        )
+        add_modelo_3D.click()
+
+
+
+
+
+
+
+        #adicionar modelo pelicula CERAMICA
+        add_modelo_pelicula = WebDriverWait(navegador, 10).until(
+        EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/aside[2]/div/div/section/form/div[1]/div[2]/div[4]/div/div[2]/div[2]/div/table/tbody/tr[2]/td[3]/select'))
+        )
+        add_modelo_pelicula.click()
+
+                #CLICK CERAMICA
+        add_modelo_ceramica = WebDriverWait(navegador, 10).until(
+        EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/aside[2]/div/div/section/form/div[1]/div[2]/div[4]/div/div[2]/div[2]/div/table/tbody/tr[2]/td[3]/select/option[3]'))
+        )
+        add_modelo_ceramica.click()
+
+
+
+
+
+
+
+        #adicionar modelo pelicula PRIVADA
+        add_modelo_pelicula = WebDriverWait(navegador, 10).until(
+        EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/aside[2]/div/div/section/form/div[1]/div[2]/div[4]/div/div[2]/div[2]/div/table/tbody/tr[3]/td[3]/select'))
+        )
+        add_modelo_pelicula.click()
+
+                #CLICK PRIVADA
+        add_modelo_privada = WebDriverWait(navegador, 10).until(
+        EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/aside[2]/div/div/section/form/div[1]/div[2]/div[4]/div/div[2]/div[2]/div/table/tbody/tr[3]/td[3]/select/option[4]'))
+        )
+        add_modelo_privada.click()
+
+
+
+
+
+
+
+
+        #adicionar modelo pelicula CERAMICA PRIVADA
+        add_modelo_pelicula = WebDriverWait(navegador, 10).until(
+        EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/aside[2]/div/div/section/form/div[1]/div[2]/div[4]/div/div[2]/div[2]/div/table/tbody/tr[4]/td[3]/select'))
+        )
+        add_modelo_pelicula.click()
+
+                #CLICK CERAMICA PRIVADA
+        add_modelo_ceramica_privada = WebDriverWait(navegador, 10).until(
+        EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/aside[2]/div/div/section/form/div[1]/div[2]/div[4]/div/div[2]/div[2]/div/table/tbody/tr[4]/td[3]/select/option[5]'))
+        )
+        add_modelo_ceramica_privada.click()
+
+
+
+
+
+
+        #clicar botao estoque NORDESTE (3D)
+        campo_estoque_3d = WebDriverWait(navegador, 10).until(
+        EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/aside[2]/div/div/section/form/div[1]/div[2]/div[4]/div/div[2]/div[2]/div/table/tbody/tr[1]/td[4]/input'))
+        )
+        campo_estoque_3d.clear()
+        campo_estoque_3d.send_keys((str(est_3d)))
+
+
+
+
+        #clicar botao estoque NORDESTE (CERAMICA)
+        campo_estoque_3d = WebDriverWait(navegador, 10).until(
+        EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/aside[2]/div/div/section/form/div[1]/div[2]/div[4]/div/div[2]/div[2]/div/table/tbody/tr[2]/td[4]/input'))
+        )
+        campo_estoque_3d.clear()
+        campo_estoque_3d.send_keys((str(est_ceramica)))
+
+
+
+
+        #clicar botao estoque NORDESTE (PRIVADA)
+        campo_estoque_3d = WebDriverWait(navegador, 10).until(
+        EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/aside[2]/div/div/section/form/div[1]/div[2]/div[4]/div/div[2]/div[2]/div/table/tbody/tr[3]/td[4]/input'))
+        )
+        campo_estoque_3d.clear()
+        campo_estoque_3d.send_keys((str(est_privada)))
+
+
+        #clicar botao estoque NORDESTE (CERAMICA PRIVADA)
+        campo_estoque_3d = WebDriverWait(navegador, 10).until(
+        EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/aside[2]/div/div/section/form/div[1]/div[2]/div[4]/div/div[2]/div[2]/div/table/tbody/tr[4]/td[4]/input'))
+        )
+        campo_estoque_3d.clear()
+        campo_estoque_3d.send_keys((str(est_ceramica_privada)))
+
+
+
+
+
+        #ABA DE LOJAS
+        aba_lojas = WebDriverWait(navegador, 10).until(
+        EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/aside[2]/div/div/section/form/div[1]/div[1]/ul/li[9]/a'))
+        )
+        aba_lojas.click()
+
+
+
+        #SOMENTE ESTOQUE LOJA NORDESTE
+        selecionar_loja_vale = WebDriverWait(navegador, 10).until(
+        EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/div/div/aside[2]/div/div/section/form/div[1]/div[2]/div[9]/div/div[2]/div/div/div[2]/label'))
+        )
+        selecionar_loja_vale.click()
+
+        # Aguarda um pouco
+        time.sleep(1)
+
 
         # CADASTRAR PRODUTO
         cadastrar_produto = WebDriverWait(navegador, 10).until(
