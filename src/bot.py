@@ -10,11 +10,11 @@ import time
 
 # Dicionário de categorias com palavras-chave
 categorias_palavras_chave = {
-    "SUPORTE": ["suporte", "base"],
-    "PAPELARIA": ["papel", "caneta", "caderno", "apontador", "borracha"],
-    "ACESSÓRIO": ["chaveiro","pulseira", "capa"],
-    "ELETRÔNICOS": ["antena", "controle", "fone", "cabo", "adaptador", "carregador"],
-    "INFORMÁTICA": ["mouse", "teclado", "monitor", "impressora", "usb", "pendrive"]
+    "IPHONE": ["iphone"],
+    "LG": ["lg "],
+    "MOTOROLA": ["motorola"],
+    "SAMSUNG": ["samsung"],
+    "XIAOMI": ["xiaomi"]
 }
 
 
@@ -31,7 +31,7 @@ navegador = webdriver.Chrome()
 
 navegador.get("https://gestaoclick.com/inicio")
 print("Diretório de trabalho atual:", os.getcwd())
-df = pd.read_excel("C:/Users/AlgoMais/Documents/BOT_CADASTRAR/src/PRODUTOS.xlsx")
+df = pd.read_excel("C:/Users/ALGOMAIS/Desktop/testes/BOT_CADASTRAR/src/PRODUTOS.xlsx")
 # df = pd.read_excel("C:/Users/Usuario/Desktop/bot_cadastrar/src/cadastro_produtos_matriz.xlsx")
 # print(df)
 
